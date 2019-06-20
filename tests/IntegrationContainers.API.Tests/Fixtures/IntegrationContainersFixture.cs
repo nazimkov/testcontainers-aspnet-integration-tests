@@ -11,12 +11,11 @@ namespace IntegrationContainers.API.Tests.Fixtures
     public class IntegrationContainersFixture : WebApplicationFactory<Startup>, IAsyncLifetime
     {
         public MssqlContainerFixture ContainerFixture { get; }
-        public TestContextConfiguration TestContextConfiguration { get; }
+        public TestContextConfiguration TestContextConfiguration { get; private set; }
 
         public IntegrationContainersFixture()
         {
             ContainerFixture = new MssqlContainerFixture();
-            TestContextConfiguration = new TestContextConfiguration(ContainerFixture.Container.GetConnectionString());
         }
 
         protected override void ConfigureWebHost(IWebHostBuilder builder)
@@ -32,9 +31,10 @@ namespace IntegrationContainers.API.Tests.Fixtures
             return ContainerFixture.DisposeAsync();
         }
 
-        public Task InitializeAsync()
+        public async Task InitializeAsync()
         {
-            return ContainerFixture.DisposeAsync();
+            await  ContainerFixture.InitializeAsync();
+            TestContextConfiguration = new TestContextConfiguration(ContainerFixture.Container.GetConnectionString());
         }
     }
 }

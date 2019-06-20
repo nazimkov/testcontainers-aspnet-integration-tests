@@ -1,6 +1,8 @@
 using IntegrationContainers.API.Tests.Fixtures;
 using System;
+using System.Net;
 using Xunit;
+using System.Threading.Tasks;
 
 namespace IntegrationContainers.API.Tests
 {
@@ -14,9 +16,12 @@ namespace IntegrationContainers.API.Tests
         }
 
         [Fact]
-        public void Test()
+        public async Task GetUsers_ShouldReturnOk()
         {
+            var client = _integrationContainersFixture.Server.CreateClient();
+            var response = await client.GetAsync("api/users");
 
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         }
     }
 }
