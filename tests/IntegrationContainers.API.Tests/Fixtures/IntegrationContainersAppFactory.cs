@@ -1,6 +1,7 @@
 using IntegrationContainers.Data;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using System.Threading.Tasks;
@@ -21,18 +22,15 @@ namespace IntegrationContainers.API.Tests.Fixtures
 
         protected override void ConfigureWebHost(IWebHostBuilder builder)
         {
-            builder.ConfigureServices(services =>
+            
+            builder.ConfigureTestServices(services =>
             {
+                var serviceProvicer = services.BuildServiceProvider();
                 services.Replace(new ServiceDescriptor(typeof(IContextConfiguration), TestContextConfiguration));
             });
-
-            base.ConfigureWebHost(builder);
         }
 
-        public async Task DisposeAsync()
-        {
-            await ContainerFixture.DisposeAsync();
-        }
+        public Task DisposeAsync() => ContainerFixture.DisposeAsync();
 
         public async Task InitializeAsync()
         {

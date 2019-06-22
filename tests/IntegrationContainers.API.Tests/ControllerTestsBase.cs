@@ -1,5 +1,6 @@
 ﻿using IntegrationContainers.API.Tests.Fixtures;
 using IntegrationContainers.Data;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Respawn;
 using System;
@@ -17,6 +18,7 @@ namespace IntegrationContainers.API.Tests
         private readonly IServiceScope _scope;
         private readonly Checkpoint _checkpoint;
         private readonly string _connectionString;
+        private object _lockObject = new object();
 
 
         public ControllerTestsBase(IntegrationContainersAppFactory integrationContainersFixture)
@@ -28,9 +30,15 @@ namespace IntegrationContainers.API.Tests
             Context = _scope.ServiceProvider.GetRequiredService<UsersDataContext>();
         }
 
-        public void Dispose() => _scope.Dispose();
-
-        public async Task InitializeAsync() => await _checkpoint.Reset(_connectionString);
+        public Task InitializeAsync()
+        {
+            // TODO get rid of lock
+            lock(_lockObject)
+            {
+                Context.Database.Migrate();
+            }
+            return _checkpoint.Reset(_connectionString);
+        }
 
         public Task DisposeAsync()
         {

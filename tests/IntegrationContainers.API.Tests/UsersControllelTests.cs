@@ -32,7 +32,7 @@ namespace IntegrationContainers.API.Tests
 
             var users = await Client.GetAsync("api/users").DeserializeResponseAsync<User[]>();
 
-            Assert.NotEmpty(users);
+            Assert.Single(users);
         }
     }
 }
