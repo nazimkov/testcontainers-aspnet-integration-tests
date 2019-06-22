@@ -8,12 +8,13 @@ using Xunit;
 
 namespace IntegrationContainers.API.Tests.Fixtures
 {
-    public class IntegrationContainersFixture : WebApplicationFactory<Startup>, IAsyncLifetime
+    public class IntegrationContainersAppFactory : WebApplicationFactory<Startup>, IAsyncLifetime
     {
         public MssqlContainerFixture ContainerFixture { get; }
+        public string ConnectionString { get; private set; }
         public TestContextConfiguration TestContextConfiguration { get; private set; }
 
-        public IntegrationContainersFixture()
+        public IntegrationContainersAppFactory()
         {
             ContainerFixture = new MssqlContainerFixture();
         }
@@ -24,17 +25,20 @@ namespace IntegrationContainers.API.Tests.Fixtures
             {
                 services.Replace(new ServiceDescriptor(typeof(IContextConfiguration), TestContextConfiguration));
             });
+
+            base.ConfigureWebHost(builder);
         }
 
-        public Task DisposeAsync()
+        public async Task DisposeAsync()
         {
-            return ContainerFixture.DisposeAsync();
+            await ContainerFixture.DisposeAsync();
         }
 
         public async Task InitializeAsync()
         {
-            await  ContainerFixture.InitializeAsync();
-            TestContextConfiguration = new TestContextConfiguration(ContainerFixture.Container.GetConnectionString());
+            await ContainerFixture.InitializeAsync();
+            ConnectionString = ContainerFixture.Container.GetConnectionString();
+            TestContextConfiguration = new TestContextConfiguration(ConnectionString);
         }
     }
 }

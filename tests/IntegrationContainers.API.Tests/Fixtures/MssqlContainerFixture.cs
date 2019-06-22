@@ -1,8 +1,4 @@
-using IntegrationContainers.Data;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc.Testing;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 using TestContainers.Container.Abstractions.Hosting;
@@ -12,7 +8,6 @@ using Xunit;
 
 namespace IntegrationContainers.API.Tests.Fixtures
 {
-
     public class MssqlContainerFixture : IAsyncLifetime
     {
         public MsSqlContainer Container { get; }

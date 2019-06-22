@@ -1,27 +1,38 @@
+using IntegrationContainers.API.Tests.Extensions;
 using IntegrationContainers.API.Tests.Fixtures;
-using System;
+using IntegrationContainers.Data.Models;
 using System.Net;
-using Xunit;
 using System.Threading.Tasks;
+using Xunit;
 
 namespace IntegrationContainers.API.Tests
 {
-    public class UsersControllersTests : IClassFixture<IntegrationContainersFixture>
+    [Collection("Integration containers collection")]
+    public class UsersControllerTests : ControllerTestsBase
     {
-        private readonly IntegrationContainersFixture _integrationContainersFixture;
-
-        public UsersControllersTests(IntegrationContainersFixture integrationContainersFixture)
+        public UsersControllerTests(IntegrationContainersAppFactory integrationContainersFixture)
+            : base(integrationContainersFixture)
         {
-            _integrationContainersFixture = integrationContainersFixture;
         }
 
         [Fact]
-        public async Task GetUsers_ShouldReturnOk()
+        public async Task GetUsers_NoUsers_ShouldReturnOk()
         {
-            var client = _integrationContainersFixture.Server.CreateClient();
-            var response = await client.GetAsync("api/users");
+            var response = await Client.GetAsync("api/users");
 
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+        }
+
+        [Fact]
+        public async Task GetUsers_UsersInDb_ShouldReturnAddedUsers()
+        {
+            var user = new User { FirstName = "Sam", LastName = "Jonson" };
+            Context.Add(user);
+            Context.SaveChanges();
+
+            var users = await Client.GetAsync("api/users").DeserializeResponseAsync<User[]>();
+
+            Assert.NotEmpty(users);
         }
     }
 }
