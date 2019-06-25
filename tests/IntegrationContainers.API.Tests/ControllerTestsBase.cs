@@ -18,12 +18,10 @@ namespace IntegrationContainers.API.Tests
         private readonly IServiceScope _scope;
         private readonly Checkpoint _checkpoint;
         private readonly string _connectionString;
-        private object _lockObject = new object();
-
 
         public ControllerTestsBase(IntegrationContainersAppFactory integrationContainersFixture)
         {
-            Client = integrationContainersFixture.CreateClient();
+            Client = integrationContainersFixture.Client;
             _scope = integrationContainersFixture.Server.Host.Services.CreateScope();
             _connectionString = integrationContainersFixture.ConnectionString;
             _checkpoint = new Checkpoint();
@@ -32,11 +30,6 @@ namespace IntegrationContainers.API.Tests
 
         public Task InitializeAsync()
         {
-            // TODO get rid of lock
-            lock(_lockObject)
-            {
-                Context.Database.Migrate();
-            }
             return _checkpoint.Reset(_connectionString);
         }
 
