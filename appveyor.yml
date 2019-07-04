@@ -24,9 +24,8 @@ after_build:
 before_test:
   - cmd: dotnet restore ./tests/IntegrationContainers.API.Tests/IntegrationContainers.API.Tests.csproj --verbosity m
   - cmd: dotnet build ./tests/IntegrationContainers.API.Tests/IntegrationContainers.API.Tests.csproj
-test:
-  assemblies:
-    - '**\*.Tests.dll'
+test-script:
+  - cmd:  dotnet test -c Debug
 clone_depth: 1
 on_finish :
   # any cleanup in here
