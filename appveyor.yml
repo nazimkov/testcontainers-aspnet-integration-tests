@@ -25,6 +25,7 @@ before_test:
   - cmd: dotnet restore ./tests/IntegrationContainers.API.Tests/IntegrationContainers.API.Tests.csproj --verbosity m
   - cmd: dotnet build ./tests/IntegrationContainers.API.Tests/IntegrationContainers.API.Tests.csproj
 test_script:
+  - cmd: docker pull  mcr.microsoft.com/mssql/server:2017-latest-ubuntu
   - cmd:  dotnet test
 clone_depth: 1
 on_finish :
