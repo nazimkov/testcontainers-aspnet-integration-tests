@@ -8,11 +8,11 @@ branches:
 init:
   # Good practice, because Windows line endings are different from Unix/Linux ones
   - cmd: git config --global core.autocrlf true
-install:
-    - docker version
 before_build:
   # Display .NET Core version
   - cmd: dotnet --version
+  # Display Docker version
+  - cmd: docker --version
   # Display minimal restore text
   - cmd: dotnet restore ./IntegrationContainers.API/IntegrationContainers.API.csproj --verbosity m
 build_script:
