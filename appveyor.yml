@@ -17,11 +17,16 @@ before_build:
   - cmd: docker --version
   # Display minimal restore text
   - cmd: dotnet restore ./IntegrationContainers.API/IntegrationContainers.API.csproj --verbosity m
-  - cmd: dotnet restore ./tests/IntegrationContainers.API.Tests/IntegrationContainers.API.Tests.csproj --verbosity m
 build_script:
   - cmd: dotnet build ./IntegrationContainers.API/IntegrationContainers.API.csproj -c Release
 after_build:
   # For once the build has completed
+before_test:
+  - cmd: dotnet restore ./tests/IntegrationContainers.API.Tests/IntegrationContainers.API.Tests.csproj --verbosity m
+  - cmd: dotnet build ./tests/IntegrationContainers.API.Tests/IntegrationContainers.API.Tests.csproj
+test:
+  assemblies:
+    - '**\*.Tests.dll'
 clone_depth: 1
 on_finish :
   # any cleanup in here
