@@ -1,3 +1,5 @@
+using System.Net.Http;
+using System.Threading.Tasks;
 using IntegrationContainers.Data;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
@@ -5,8 +7,6 @@ using Microsoft.AspNetCore.TestHost;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using System.Net.Http;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace IntegrationContainers.API.Tests.Fixtures
@@ -33,7 +33,6 @@ namespace IntegrationContainers.API.Tests.Fixtures
             });
         }
 
-
         public Task DisposeAsync() => ContainerFixture.DisposeAsync();
 
         public async Task InitializeAsync()
@@ -42,7 +41,7 @@ namespace IntegrationContainers.API.Tests.Fixtures
             ConnectionString = ContainerFixture.Container.GetConnectionString();
             TestContextConfiguration = new TestContextConfiguration(ConnectionString);
 
-            Client =  CreateClient();
+            Client = CreateClient();
 
             using (var scope = Server.Host.Services.CreateScope())
             {
