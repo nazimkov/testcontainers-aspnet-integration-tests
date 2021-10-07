@@ -1,7 +1,7 @@
 # testcontainers-aspnet-integration-tests
 [![Build status](https://ci.appveyor.com/api/projects/status/2xd5wkyy9laelcow?svg=true)](https://ci.appveyor.com/project/nazimkov/testcontainers-aspnet-integration-tests)
 
-.NET Core 3.1 API + EF Core + MSSQL example application which utilize integration testing using Docker containers for throwaway DB instance. 
+ASP.NET Core 5.0 API + EF Core + MSSQL example application which utilize integration testing using Docker containers for throwaway DB instance. 
 
 The integration testing implemented with help of:
 
@@ -12,7 +12,7 @@ The integration testing implemented with help of:
 
 ## Project structure
 
-1. `IntegrationContainers.API` - .NET Core 3.1 API 
+1. `IntegrationContainers.API` - .NET Core 5.A PI 
 2. `IntegrationContainers.Data` - sort of Data Access Layer with EF Core Db Context , entities, migrations
 3. `IntegrationContainers.API.Tests` - integration tests with fixtures setup
 
@@ -25,3 +25,4 @@ Before running unit tests:
 2. Pull SQL Server image:
 
    ```docker pull mcr.microsoft.com/mssql/server:2017-latest-ubuntu```
+
