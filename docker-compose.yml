@@ -1,0 +1,22 @@
+version: '3.4'
+
+services:
+  integrationcontainers.api:
+    image: ${DOCKER_REGISTRY-}integrationcontainersapi
+    build:
+      context: .
+      dockerfile: IntegrationContainers.API/Dockerfile
+    ports:
+      - "5001:80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    depends_on:
+        - integrationcontainers.db
+
+  integrationcontainers.db: 
+    image: "mcr.microsoft.com/mssql/server:2017-latest-ubuntu"
+    ports:
+      - "1433:1433"
+    environment:
+        SA_PASSWORD: "ekr2!qv@5#IM35O$$"
+        ACCEPT_EULA: "Y"

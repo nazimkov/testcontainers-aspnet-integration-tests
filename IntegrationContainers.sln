@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29009.5
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegrationContainers.API", "IntegrationContainers.API\IntegrationContainers.API.csproj", "{726F677C-FC88-495D-9504-A95A213A4FC2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IntegrationContainers.API", "IntegrationContainers.API\IntegrationContainers.API.csproj", "{726F677C-FC88-495D-9504-A95A213A4FC2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegrationContainers.Data", "IntegrationContainers.Data\IntegrationContainers.Data.csproj", "{5D1D6D92-B546-4F2F-8B08-EF054A0D2FE8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IntegrationContainers.Data", "IntegrationContainers.Data\IntegrationContainers.Data.csproj", "{5D1D6D92-B546-4F2F-8B08-EF054A0D2FE8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{4E42FBA5-4F43-460E-AE5C-4A69E15D64D1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegrationContainers.API.Tests", "tests\IntegrationContainers.API.Tests\IntegrationContainers.API.Tests.csproj", "{D1B26BF0-3478-4A59-AA32-77E73B2D635A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IntegrationContainers.API.Tests", "tests\IntegrationContainers.API.Tests\IntegrationContainers.API.Tests.csproj", "{D1B26BF0-3478-4A59-AA32-77E73B2D635A}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{B6447C22-CA39-4043-873A-ACFAEBC61CF0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,6 +31,10 @@ Global
 		{D1B26BF0-3478-4A59-AA32-77E73B2D635A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D1B26BF0-3478-4A59-AA32-77E73B2D635A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D1B26BF0-3478-4A59-AA32-77E73B2D635A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6447C22-CA39-4043-873A-ACFAEBC61CF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6447C22-CA39-4043-873A-ACFAEBC61CF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6447C22-CA39-4043-873A-ACFAEBC61CF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6447C22-CA39-4043-873A-ACFAEBC61CF0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
